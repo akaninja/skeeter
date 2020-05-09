@@ -1,24 +1,22 @@
-# README
+# Skeeter
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Personal project for practice. Twitter clone.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+This project currently runs:
 
-* System dependencies
+- Ruby 2.7.0
+- Rails 6.0.3
+- Postgres
 
-* Configuration
+## Setup
 
-* Database creation
+- Install [Docker-compose](https://docs.docker.com/compose/install/).
+- Run `docker-compose run --service-ports web bash`
+- Run `bin/setup`
 
-* Database initialization
+## Running specs
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This project runs [Rspec-rails](https://github.com/rspec/rspec-rails).
+Run: `rspec`.
