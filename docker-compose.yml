@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: rails s -b 0.0.0.0
+    container_name: skeeter
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/opt/app
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+    links:
+      - db
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - skeeter_data:/var/lib/postgresql/data
+volumes:
+  skeeter_data:
