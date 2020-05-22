@@ -1,0 +1,17 @@
+<h1>Welcome to Skeeter</h1>
+
+<%= form_with model: @publication, method: :post do |f| %>
+  <%= f.label :message, 'Mensagem' %>
+  <%= f.text_area :message %>
+  <%= f.submit 'Enviar' %>
+<% end %>
+
+<% if user_signed_in? %>
+  <h2>Timelime</h2>
+  <div class="timeline">
+    <% @publications.each do |p| %>
+      <p><%= p.user.email %>
+    <p><%= p.message %> - <%= p.created_at %></p>
+  <% end %>
+  </div>
+<% end %>
