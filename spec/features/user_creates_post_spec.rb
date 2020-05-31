@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'User creates a post' do
   scenario 'successfully' do
-    user = User.create(email: 'user@email.com', password: '123456')
+    user = User.create(email: 'user@email.com', password: '123456',
+                       username: 'user_name' )
     login_as user, :scope => :user
     visit root_path
 
@@ -11,7 +12,7 @@ feature 'User creates a post' do
     publication = Publication.last
 
     within(:css, ".timeline") do
-      expect(page).to have_css('p', text: 'user@email.com')
+      expect(page).to have_css('p', text: '@user_name')
       expect(page).to have_css('p', text: 'Olá pessoal, essa é minha primeira '\
                                'mensagem')
       expect(page).to have_content(publication.created_at)
@@ -19,7 +20,8 @@ feature 'User creates a post' do
   end
 
   scenario 'and only sees last 5 posts' do
-    user = User.create(email: 'user@email.com', password: '123456')
+    user = User.create(email: 'user@email.com', password: '123456',
+                       username: 'user_name')
     login_as user, scope: :user
     6.times do |p|
       Publication.create(message: " Message: #{ p }", user: user)
@@ -37,9 +39,12 @@ feature 'User creates a post' do
   end
 
   scenario 'and only sees following publications' do
-    user = User.create(email: 'user@email.com', password: '123456')
-    following = User.create(email: 'following@email.com', password: '123456')
-    not_following = User.create(email:'not@email.com', password: '123456')
+    user = User.create(email: 'user@email.com', password: '123456',
+                       username: 'user_name')
+    following = User.create(email: 'following@email.com', password: '123456',
+                            username: 'follow')
+    not_following = User.create(email:'not@email.com', password: '123456',
+                                username: 'follow2')
     FollowingUser.create(user: user, following: following)
     login_as user, scope: :user
     Publication.create!(message: 'Message by following user', user: following)

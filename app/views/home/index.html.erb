@@ -1,16 +1,18 @@
 <h1>Welcome to Skeeter</h1>
 
-<%= form_with model: @publication, method: :post do |f| %>
-  <%= f.label :message, 'Mensagem' %>
-  <%= f.text_area :message %>
-  <%= f.submit 'Enviar' %>
-<% end %>
-
 <% if user_signed_in? %>
+  <div class="sidebar">
+    <%= link_to "@#{ current_user.username }", edit_profile_path, method: :post %>
+  </div>
+  <%= form_with model: @publication, method: :post do |f| %>
+    <%= f.label :message, 'Mensagem' %>
+    <%= f.text_area :message %>
+    <%= f.submit 'Enviar' %>
+  <% end %>
   <h2>Timelime</h2>
   <div class="timeline">
     <% @publications.each do |p| %>
-      <p><%= p.user.email %>
+      <p><%= "@#{ p.user.username }" %>
     <p><%= p.message %> - <%= p.created_at %></p>
   <% end %>
   </div>

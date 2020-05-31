@@ -1,8 +1,0 @@
-class PublicationsController < ApplicationController
-  def create
-    @publication = Publication.new(params.require(:publication).permit(:message))
-    @publication.save
-    byebug
-    redirect_to root_path
-  end
-end
