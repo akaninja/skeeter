@@ -16,4 +16,9 @@
     <p><%= p.message %> - <%= p.created_at %></p>
   <% end %>
   </div>
+<% else %>
+    <nav>
+      <%= link_to 'Entrar', new_user_session_path %>
+      <%= link_to 'Criar uma conta', new_user_registration_path  %>
+    </nav>
 <% end %>

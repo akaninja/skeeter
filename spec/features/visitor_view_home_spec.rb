@@ -9,18 +9,35 @@ feature 'Visitor views home page' do
 
     expect(page).to have_content('Welcome to Skeeter')
     expect(page).not_to have_content('This is a post.')
+    expect(page).not_to have_content('Timeline')
   end
 
-  scenario 'and creates account' do
-    visit root_path
-    click_on 'Criar uma conta'
-    fill_in 'Nome de Usuário', with: 'Pedroca'
-    fill_in 'E-mail', with: 'user@email.com'
-    fill_in 'Senha', with: '123456'
-    fill_in 'Confirmar senha', with: '123456'
-    click_on 'Criar conta'
+  context 'and creates account' do
+    scenario 'successfully' do
+      visit root_path
+      click_on 'Criar uma conta'
+      fill_in 'Nome de Usuário', with: 'Pedroca'
+      fill_in 'E-mail', with: 'user@email.com'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirmar senha', with: '123456'
+      click_on 'Criar conta'
 
-    expect(page).to have_content('@Pedroca')
+      expect(page).to have_content('@Pedroca')
+    end
+
+    scenario 'and name must be unique' do
+      User.create(email:'user@email.com', password:'123456', username: 'Pedroca')
+      visit root_path
+      click_on 'Criar uma conta'
+      fill_in 'Nome de Usuário', with: 'Pedroca'
+      fill_in 'E-mail', with: 'other_user@email.com'
+      fill_in 'Senha', with: '123456'
+      fill_in 'Confirmar senha', with: '123456'
+      click_on 'Criar conta'
+
+      expect(page).to have_content('Username has already been taken')
+      expect(User.all.count).to eq 1
+    end
   end
 
   scenario 'and logs in' do
