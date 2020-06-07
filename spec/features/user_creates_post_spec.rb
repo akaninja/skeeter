@@ -5,6 +5,7 @@ feature 'User creates a post' do
     user = User.create(email: 'user@email.com', password: '123456',
                        username: 'user_name' )
     login_as user, :scope => :user
+
     visit root_path
 
     fill_in 'Mensagem', with: 'Olá pessoal, essa é minha primeira mensagem'

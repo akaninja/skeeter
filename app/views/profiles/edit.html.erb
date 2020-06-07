@@ -1,6 +1,6 @@
 <h1>Editar perfil</h1>
 
-<%= form_with model: @user_profile, local: true do |f| %>
+<%= form_with url: update_profile_path, method: :patch, local: true do |f| %>
   <%= f.label :name, 'Nome' %>
   <%= f.text_field :name %>
   <%= f.label :bio, 'Bio' %>

@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_203838) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"

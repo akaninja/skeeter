@@ -2,7 +2,7 @@
 
 <% if user_signed_in? %>
   <div class="sidebar">
-    <%= link_to "@#{ current_user.username }", edit_profile_path, method: :post %>
+    <%= link_to "@#{ current_user.username }", profile_path(current_user.profile) %>
   </div>
   <%= form_with model: @publication, method: :post do |f| %>
     <%= f.label :message, 'Mensagem' %>

@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @user_profile = current_user.profile
+    @user_profile = Profile.find(params[:id])
   end
 
   def edit
@@ -15,8 +15,17 @@ class ProfilesController < ApplicationController
     redirect_to @user_profile
   end
 
-  def profile_params
-    params.require(:profile).permit(:name, :bio)
+  def follow
+    following = Profile.find(params[:id]).user
+    user = current_user
+
+    return redirect_to following.profile if user.followings.include?(following)
+
+    FollowingUser.create(user: user, following: following)
+    redirect_to following.profile
   end
 
+  def profile_params
+    params.permit(:name, :bio)
+  end
 end

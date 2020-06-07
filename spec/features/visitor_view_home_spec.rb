@@ -2,8 +2,7 @@ require 'rails_helper'
 
 feature 'Visitor views home page' do
   scenario 'successfully' do
-    user = User.create(email: 'user@email.com', password: '123456')
-    Publication.create!(message:'This is a post.', user: user)
+    create(:publication, message:'This is a post.')
 
     visit root_path
 
@@ -25,7 +24,7 @@ feature 'Visitor views home page' do
       expect(page).to have_content('@Pedroca')
     end
 
-    scenario 'and name must be unique' do
+    scenario 'and username must be unique' do
       User.create(email:'user@email.com', password:'123456', username: 'Pedroca')
       visit root_path
       click_on 'Criar uma conta'

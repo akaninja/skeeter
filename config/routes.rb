@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-
-  resources :profiles, only: %i[update show]
-  post 'edit_profile', to: 'profiles#edit'
+  resources :profiles, only: [:show] do
+    member do
+      post 'follow', to: 'profiles#follow'
+    end
+  end
+  get 'edit_profile', to: 'profiles#edit'
+  patch 'update_profile', to: 'profiles#update'
 end

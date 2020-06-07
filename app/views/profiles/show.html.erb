@@ -5,4 +5,11 @@
   <dt>Bio</dt>
   <dd><%= @user_profile.bio %></dd>
   <dt><%= "#{@user_profile.user.followings.all.count } Seguindo"  %>
+<% if @user_profile.user == current_user %>
+  <dd><%= link_to 'Editar perfil', edit_profile_path %>
+<% else %>
+  <% if !current_user.followings.include?(@user_profile.user) %>
+    <dd><%= link_to 'Seguir', follow_profile_path, method: :post %>
+  <% end %>
+<% end %>
 </dl>
